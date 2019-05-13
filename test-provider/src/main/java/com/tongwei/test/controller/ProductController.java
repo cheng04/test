@@ -34,8 +34,8 @@ public class ProductController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    private DemoClient demolient; // feign让跨服务调用能够看起来像本地调用
+//    @Autowired
+//    private DemoClient demolient; // feign让跨服务调用能够看起来像本地调用
 
     @Autowired
     private ProductService productService;
@@ -55,7 +55,10 @@ public class ProductController {
 
     @GetMapping("/{id:[a-zA-Z0-9]+}")
     public Payload getProductById(@PathVariable("id") String id) {
-        return new Payload(productService.getProductById(id));
+        Product p = productService.getProductById(id);
+        p.setName("liy019："+id);
+
+        return new Payload(p);
     }
 
     @PostMapping
@@ -70,6 +73,8 @@ public class ProductController {
 
     @DeleteMapping("/{id:[a-zA-Z0-9]+}")
     public Payload deleteProductById(@PathVariable("id") String id) {
+
+
         return new Payload(productService.deleteProductById(id));
     }
     /**
@@ -111,7 +116,7 @@ public class ProductController {
     @GetMapping("/testFeign")
     public Payload testFeign(@RequestParam Integer a, @RequestParam Integer b) {
         logger.info("远程调用成功: Hello World!!");
-        return new Payload(demolient.add(10, 20));
+        return new Payload();
     }
 
     /**
