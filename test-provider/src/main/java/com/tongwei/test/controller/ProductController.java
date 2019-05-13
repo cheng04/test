@@ -72,8 +72,6 @@ public class ProductController {
     public Payload deleteProductById(@PathVariable("id") String id) {
         return new Payload(productService.deleteProductById(id));
     }
-
-
     /**
      * 测试统一异常处理
      * @return
